@@ -1,5 +1,6 @@
 .container {
     display: grid;
+    grid-template-columns: repeat(2, 1fr);
     grid-template-areas: 
     "header    header"
     "full_name title"
@@ -7,11 +8,11 @@
     ".         education"
     "about     about"
     "skills    hobbies";
-    grid-template-columns: 2fr 3fr;
-    gap: 6px;
+    gap: 2px;
     padding: 6px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     width: 50%;
+    border: 1px solid steelblue
 }
 
 .container div {
