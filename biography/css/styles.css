@@ -1,3 +1,31 @@
-div {
-    color: blue;
+.container {
+    display: grid;
+    grid-template-areas: 
+    "header header"
+    "full_name title"
+    "profile contact"
+    "profile education"
+    "about about"
+    "skills hobbies";
+    grid-template-columns: 1fr 3fr;
+    gap: 6px;
+    padding: 6px;
+}
+
+.header {
+    grid-column: 1 / span 2;
+}
+
+.profile {
+    grid-row: 3 / span 2;
+}
+
+.profile img {
+    width: 200px;
+    height: 250px;
+    border-radius: 10px;
+}
+
+.about {
+    grid-column: 1 / span 2;
 }
