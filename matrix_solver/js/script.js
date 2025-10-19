@@ -1,4 +1,4 @@
-const testMatrix = [
+let testMatrix = [
     [1, 4, 8],
     [9, 2, 7],
     [3, 5, 4]
@@ -9,6 +9,7 @@ let inputCount = 9;
 let matrices = document.getElementsByClassName('matrix');
 let increase = document.getElementById('increase');
 let decrease = document.getElementById('decrease');
+
 
 window.addEventListener('load', () => {
     const matrixACells = document.getElementById('matrix_a').children;
