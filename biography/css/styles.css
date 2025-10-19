@@ -2,13 +2,13 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-areas: 
-    "header    header"
-    "full_name title"
-    "profile   contact"
-    ".         education"
-    "about     about"
-    "skills    hobbies";
-    width: 45%;
+        "header    header"
+        "full_name title"
+        "profile   contact"
+        ".         education"
+        "about     about"
+        "skills    hobbies";
+    width: 50%;
     font-family: Georgia, 'Times New Roman', Times, serif;
     background-image: url("../img/background.jpg");
 }
@@ -24,7 +24,8 @@
 }
 
 .header {
-    grid-column: 1 / span 2;
+    /* grid-column: 1 / span 2; */
+    grid-area: header;
     justify-self: center;
 }
 
