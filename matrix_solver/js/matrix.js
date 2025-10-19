@@ -39,8 +39,10 @@ let decreaseMatrixSize = (matrix, targetSize) => {
     return newMatrix;
 }
 
-let decreasedMatrix = decreaseMatrixSize(increasedMatrix, 3);
-console.log(decreasedMatrix);
+// let decreasedMatrix = decreaseMatrixSize(increasedMatrix, 3);
+// console.log(decreasedMatrix);
 
-let twoByTwo = decreaseMatrixSize(decreasedMatrix, 2);
-console.log(twoByTwo)
+// let twoByTwo = decreaseMatrixSize(decreasedMatrix, 2);
+// console.log(twoByTwo)
+
+export { defaultMatrix };

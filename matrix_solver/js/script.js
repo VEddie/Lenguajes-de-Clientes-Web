@@ -1,3 +1,5 @@
+import { defaultMatrix } from "./matrix.js";
+
 let testMatrix = [
     [1, 4, 8],
     [9, 2, 7],
