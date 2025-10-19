@@ -1,8 +1,23 @@
+const testMatrix = [
+    [1, 4, 8],
+    [9, 2, 7],
+    [3, 5, 4]
+];
+
 let currentSize = 3;
 let inputCount = 9;
 let matrices = document.getElementsByClassName('matrix');
 let increase = document.getElementById('increase');
 let decrease = document.getElementById('decrease');
+
+window.addEventListener('load', () => {
+    const matrixACells = document.getElementById('matrix_a').children;
+    const testData = testMatrix.flat();
+
+    for(let i = 0; i < matrixACells.length; i++) 
+        matrixACells[i].value = testData[i];
+
+});
 
 increase.addEventListener('click', () => {
     if(currentSize === 10) {
