@@ -1,4 +1,4 @@
-import { defaultMatrix } from "./matrix.js";
+import { createMatrix, increaseMatrixSize, decreaseMatrixSize } from "./matrix.js";
 
 let testMatrix = [
     [1, 4, 8],
@@ -12,15 +12,19 @@ let matrices = document.getElementsByClassName('matrix');
 let increase = document.getElementById('increase');
 let decrease = document.getElementById('decrease');
 
+let updateMatrices = () => {
+    // Spread operator forces HTMLCollection to an array.
+    const matrixCells = [...document.getElementById('matrix_a').children];
+    const inputArray = createMatrix(matrixCells, currentSize);
 
-window.addEventListener('load', () => {
-    const matrixACells = document.getElementById('matrix_a').children;
-    const testData = testMatrix.flat();
+    for(let i = 0; i < inputArray.length; i++) {
+        for(let j = 0; j < inputArray[i].length; j++) 
+            inputArray[i][j].value = testMatrix[i][j] !== "" ? testMatrix[i][j] : 0;
+    }
 
-    for(let i = 0; i < matrixACells.length; i++) 
-        matrixACells[i].value = testData[i];
+}
 
-});
+window.addEventListener('load', updateMatrices);
 
 increase.addEventListener('click', () => {
     if(currentSize === 10) {
@@ -41,7 +45,9 @@ increase.addEventListener('click', () => {
         }
     }
 
+    testMatrix = increaseMatrixSize(testMatrix, currentSize);
     inputCount = (currentSize ** 2);
+    updateMatrices();
     
 });
 
@@ -60,11 +66,11 @@ decrease.addEventListener('click', () => {
             matrices[i].removeChild(matrices[i].firstElementChild);
     }
 
+    testMatrix = decreaseMatrixSize(testMatrix, currentSize)
     inputCount = (currentSize ** 2);
+    updateMatrices();
     
 });
-
-
 
 /* 
     2x2 = 4 

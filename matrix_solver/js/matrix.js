@@ -1,6 +1,4 @@
-const defaultMatrix = [1, 4, 8, 9, 2, 7, 3, 5, 4];
-
-let parseMatrix = (matrix, size) => {
+let createMatrix = (matrix, size) => {
     let result = [];
 
     if(matrix.length % size !== 0) return;
@@ -11,21 +9,18 @@ let parseMatrix = (matrix, size) => {
     return result;
 };
 
-let parsedMatrix = parseMatrix(defaultMatrix, 3);
-
-let increaseMatrixSize = (matrix, currentSize) => {
-    // Deep copy of the original
+let increaseMatrixSize = (matrix, targetSize) => {
+    // Deep copy of the original.
     let newMatrix = window.structuredClone(matrix);
 
-    for(let i = 0; i < currentSize; i++) 
+    // Fix this later.
+    for(let i = 0; i < targetSize - 1; i++) 
         newMatrix[i].push(0);
     
-    newMatrix.push(new Array(++currentSize).fill(0));
+    newMatrix.push(new Array(targetSize).fill(0));
 
     return newMatrix;
 };
-
-let increasedMatrix = increaseMatrixSize(parsedMatrix, 3)
 
 let decreaseMatrixSize = (matrix, targetSize) => {
     let newMatrix = window.structuredClone(matrix);
@@ -39,10 +34,4 @@ let decreaseMatrixSize = (matrix, targetSize) => {
     return newMatrix;
 }
 
-// let decreasedMatrix = decreaseMatrixSize(increasedMatrix, 3);
-// console.log(decreasedMatrix);
-
-// let twoByTwo = decreaseMatrixSize(decreasedMatrix, 2);
-// console.log(twoByTwo)
-
-export { defaultMatrix };
+export { createMatrix, increaseMatrixSize, decreaseMatrixSize };
