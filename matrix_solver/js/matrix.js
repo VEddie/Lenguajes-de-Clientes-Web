@@ -1,18 +1,14 @@
 let test_a = [
     [1, 5, 9],
     [2, 4, 7],
-    [8, 3, 6]
+    [8, 3, 6],
 ];
 
 let test_b = [
     [3, 5, 7],
     [1, 9, 2],
-    [7, 1, 4]
+    [7, 1, 4],
 ];
-
-[
-    [],
-]
 
 let sumMatrices = (a, b) => {
     let result = [];
@@ -41,11 +37,17 @@ let multiplyMatrices = (a, b) => {
     for(let i = 0; i < a.length; i++) {
         result.push([]);
         for(let j = 0; j < a[i].length; j++) {
-            
+            let sum = 0;
+            for(let k = 0; k < b[i].length; k++) {
+                sum += a[i][k] * b[k][j];
+            }
+            result[i].push(sum);
         }
     }
-}
 
+    console.log(result);
+
+}
 
 let createMatrix = (matrix, size) => {
     let result = [];
