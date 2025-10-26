@@ -1,5 +1,13 @@
 import { createMatrix, increaseMatrixSize, decreaseMatrixSize } from "./matrix.js";
 
+
+/* TO DO: 
+- Make updateMatrices work with both matrix_b.
+- Add a button that autofills matrices with valid values.
+- Add a clear button.
+- Add sum and substract operations.
+*/
+
 let testMatrix = [
     [1, 4, 8],
     [9, 2, 7],

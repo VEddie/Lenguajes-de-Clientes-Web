@@ -1,3 +1,52 @@
+let test_a = [
+    [1, 5, 9],
+    [2, 4, 7],
+    [8, 3, 6]
+];
+
+let test_b = [
+    [3, 5, 7],
+    [1, 9, 2],
+    [7, 1, 4]
+];
+
+[
+    [],
+]
+
+let sumMatrices = (a, b) => {
+    let result = [];
+    for(let i = 0; i < a.length; i++) {
+        result.push([]);
+        for(let j = 0; j < a[i].length; j++) 
+            result[i].push(a[i][j] + b[i][j])
+    }
+    
+    console.log(result);      
+}
+
+let subtractMatrices = (a, b) => {
+    let result = [];
+    for(let i = 0; i < a.length; i++) {
+        result.push([]);
+        for(let j = 0; j < a[i].length; j++) 
+            result[i].push(a[i][j] - b[i][j])
+    }
+
+    console.log(result);      
+}
+
+let multiplyMatrices = (a, b) => {
+    let result = [];
+    for(let i = 0; i < a.length; i++) {
+        result.push([]);
+        for(let j = 0; j < a[i].length; j++) {
+            
+        }
+    }
+}
+
+
 let createMatrix = (matrix, size) => {
     let result = [];
 
