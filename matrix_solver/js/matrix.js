@@ -49,6 +49,39 @@ let multiplyMatrices = (a, b) => {
 
 }
 
+let multiplyBy = (value, a) => {
+    let result = [];
+    for(let i = 0; i < a.length; i++) {
+        result.push([]);
+        for(let j = 0; j < a[i].length; j++)
+            result[i].push(value * a[i][j]);
+    }
+
+    console.log(result);
+}
+
+let createIdentityMatrix = (size) => {
+    let result = [];
+    for(let i = 0; i < size; i++) {
+        let row = new Array(size).fill(0);
+        row[i] = 1;
+        result.push(row);
+    }
+
+    return result;
+}
+
+let transposeMatrix = (a) => {
+    let result = createIdentityMatrix(a.length);
+    for(let i = 0; i < a.length; i++) 
+        for(let j = 0; j < a[i].length; j++) 
+            result[j][i] = a[i][j];
+
+    console.log(result);
+}
+
+transposeMatrix(test_a);
+
 let createMatrix = (matrix, size) => {
     let result = [];
 
