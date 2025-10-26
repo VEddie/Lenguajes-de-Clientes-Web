@@ -80,7 +80,45 @@ let transposeMatrix = (a) => {
     console.log(result);
 }
 
-transposeMatrix(test_a);
+
+// Change variable names for clarity sake.
+
+let calculateDeterminant = (a) => {
+    for(let i = 0; i < (a.length - 1); i++) {
+        let currentRow = a[i];
+        console.log(`Current row: ${currentRow}`);
+        let currentValue = a[i][i];
+        console.log(`Current value: ${currentValue}`);
+
+        for(let j = (i+1); j < a.length; j++) {
+            let nextRow = a[j];
+            let targetValue = a[j][i];
+            console.log(`Target value: ${targetValue}`);
+            let factor = -((targetValue)/currentValue);
+            console.log(`Current factor: ${factor}`);
+
+            let values = currentRow.map(v => v * factor);
+            let addedValues = nextRow.map((v, index) => v + values[index]);
+            
+            a[j] = addedValues;
+            console.log(addedValues);
+            
+        }
+    }
+
+    let determinant = 1;
+    for(let i = 0; i < a.length; i++)
+        determinant *= a[i][i];
+
+    console.log(`The determinant is: ${determinant.toFixed(4)}`)
+}
+
+
+calculateDeterminant(test_a)
+
+
+
+
 
 let createMatrix = (matrix, size) => {
     let result = [];
