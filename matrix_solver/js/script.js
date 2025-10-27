@@ -1,46 +1,74 @@
 import { createMatrix, increaseMatrixSize, decreaseMatrixSize } from "./matrix.js";
 
-
 /* TO DO: 
-- Make updateMatrices work with both matrix_b.
-- Add a button that autofills matrices with valid values.
-- Add a clear button.
+    - Refactor the updateMatrices function to be more generic.
 */
 
-let testMatrix = [
-    [3, 5, 9],
-    [2, 4, 7],
-    [8, 3, 6]
+let matrix_a = [
+    [5, 0, 0],
+    [0, 5, 0],
+    [0, 0, 5]
 ];
+
+let matrix_b = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+];
+
+// Matrix cell values.
+let inputValues = [matrix_a, matrix_b];
 
 let currentSize = 3;
 let inputCount = 9;
-let matrices = document.getElementsByClassName('matrix');
-let increase = document.getElementById('increase');
-let decrease = document.getElementById('decrease');
 
-let updateMatrices = () => {
-    // Spread operator forces HTMLCollection to an array.
-    const matrixCells = [...document.getElementById('matrix_a').children];
-    const inputArray = createMatrix(matrixCells, currentSize);
+// Spread operator forces HTMLCollection to an array.
+let matrices = [...document.getElementsByClassName('matrix')];
 
-    for(let i = 0; i < inputArray.length; i++) {
-        for(let j = 0; j < inputArray[i].length; j++) 
-            inputArray[i][j].value = testMatrix[i][j] !== "" ? testMatrix[i][j] : 0;
+let increaseButton = document.getElementById('increase');
+let decreaseButton = document.getElementById('decrease');
+let fillButton = document.getElementById('randomValues');
+let clearButton = document.getElementById('clear');
+
+
+let copyMatrix = (matrix, size) => {
+    let newMatrix = [];
+    for(let i = 0; i < size; i++) {
+        let row = new Array(size).fill(0);
+        newMatrix.push(row);
+    }
+    
+    for(let i = 0; i < matrix.length; i++) {
+        for(let j = 0; j < matrix[i].length; j++) 
+            newMatrix[i][j] = matrix[i][j]
+        
     }
 
+    return newMatrix;
+}
+
+let updateMatrices = () => {
+    for(let i = 0; i < matrices.length; i++) {
+        let inputArray = createMatrix([...matrices[i].children], currentSize);
+
+        // Loop the input fields
+        for(let j = 0; j < currentSize; j++) 
+            for(let k = 0; k < currentSize; k++)  
+                inputValues[i][j][k] = inputArray[j][k].value;
+    }
 }
 
 window.addEventListener('load', updateMatrices);
 
-increase.addEventListener('click', () => {
+increaseButton.addEventListener('click', () => {
     if(currentSize === 10) {
         alert('Máximo tamaño permitido es 10x10.');
         return;
     }
 
     currentSize++;
-    
+
+    // Add new input fields.
     for(let i = 0; i < matrices.length; i++) {
         matrices[i].style.gridTemplateColumns = `repeat(${currentSize}, 1fr)`;
 
@@ -49,16 +77,15 @@ increase.addEventListener('click', () => {
             input.type = 'number';
             input.value = 0;
             matrices[i].appendChild(input);
-        }
+        }        
     }
-
-    testMatrix = increaseMatrixSize(testMatrix, currentSize);
+    
     inputCount = (currentSize ** 2);
     updateMatrices();
-    
+
 });
 
-decrease.addEventListener('click', () => {
+decreaseButton.addEventListener('click', () => {
     if(currentSize === 2) {
         alert('Mínimo tamaño permitido es 2x2.');
         return;
@@ -77,4 +104,25 @@ decrease.addEventListener('click', () => {
     inputCount = (currentSize ** 2);
     updateMatrices();
     
+});
+
+fillButton.addEventListener('click', () => {
+    // FIX DUPLICATED CODE
+    for(let i = 0; i < matrices.length; i++) {
+        let inputArray = createMatrix([...matrices[i].children], currentSize);
+
+        for(let j = 0; j < currentSize; j++) 
+            for(let k = 0; k < currentSize; k++)  
+                inputArray[j][k].value = Math.floor((Math.random() - 0.5) * 20);
+    }
+});
+
+clearButton.addEventListener('click', () => {
+    for(let i = 0; i < matrices.length; i++) {
+        let inputArray = createMatrix([...matrices[i].children], currentSize);
+
+        for(let j = 0; j < currentSize; j++) 
+            for(let k = 0; k < currentSize; k++)  
+                inputArray[j][k].value = 0;
+    }
 });

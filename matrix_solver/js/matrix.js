@@ -181,19 +181,19 @@ let createInverseMatrix = (a) => {
         }
     }
 
-    console.log(a);
-    console.log(result);
+    // console.log(a);
+    // console.log(result);
 };
 
 createInverseMatrix(test_a);
 
-let createMatrix = (matrix, size) => {
+let createMatrix = (array, size) => {
     let result = [];
 
-    if(matrix.length % size !== 0) return;
+    if(array.length % size !== 0) return;
 
-    for(let i = 0; i < matrix.length; i+= size) 
-        result.push(matrix.slice(i, i + size));    
+    for(let i = 0; i < array.length; i+= size) 
+        result.push(array.slice(i, i + size));    
     
     return result;
 };
