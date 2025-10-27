@@ -8,7 +8,7 @@ import { createMatrix, increaseMatrixSize, decreaseMatrixSize } from "./matrix.j
 */
 
 let testMatrix = [
-    [1, 5, 9],
+    [3, 5, 9],
     [2, 4, 7],
     [8, 3, 6]
 ];

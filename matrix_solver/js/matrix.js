@@ -1,5 +1,5 @@
 let test_a = [
-    [1, 5, 9],
+    [3, 5, 9],
     [2, 4, 7],
     [8, 3, 6],
 ];
@@ -10,6 +10,17 @@ let test_b = [
     [7, 1, 4],
 ];
 
+let createIdentityMatrix = (size) => {
+    let result = [];
+    for(let i = 0; i < size; i++) {
+        let row = new Array(size).fill(0);
+        row[i] = 1;
+        result.push(row);
+    }
+
+    return result;
+};
+
 let sumMatrices = (a, b) => {
     let result = [];
     for(let i = 0; i < a.length; i++) {
@@ -19,7 +30,7 @@ let sumMatrices = (a, b) => {
     }
     
     console.log(result);      
-}
+};
 
 let subtractMatrices = (a, b) => {
     let result = [];
@@ -30,7 +41,7 @@ let subtractMatrices = (a, b) => {
     }
 
     console.log(result);      
-}
+};
 
 let multiplyMatrices = (a, b) => {
     let result = [];
@@ -47,7 +58,7 @@ let multiplyMatrices = (a, b) => {
 
     console.log(result);
 
-}
+};
 
 let multiplyBy = (value, a) => {
     let result = [];
@@ -58,18 +69,9 @@ let multiplyBy = (value, a) => {
     }
 
     console.log(result);
-}
+};
 
-let createIdentityMatrix = (size) => {
-    let result = [];
-    for(let i = 0; i < size; i++) {
-        let row = new Array(size).fill(0);
-        row[i] = 1;
-        result.push(row);
-    }
 
-    return result;
-}
 
 let transposeMatrix = (a) => {
     let result = createIdentityMatrix(a.length);
@@ -78,7 +80,7 @@ let transposeMatrix = (a) => {
             result[j][i] = a[i][j];
 
     console.log(result);
-}
+};
 
 
 // Change variable names for clarity sake.
@@ -86,16 +88,16 @@ let transposeMatrix = (a) => {
 let calculateDeterminant = (a) => {
     for(let i = 0; i < (a.length - 1); i++) {
         let currentRow = a[i];
-        console.log(`Current row: ${currentRow}`);
         let currentValue = a[i][i];
-        console.log(`Current value: ${currentValue}`);
+        // console.log(`Current row: ${currentRow}`);
+        // console.log(`Current value: ${currentValue}`);
 
         for(let j = (i+1); j < a.length; j++) {
             let nextRow = a[j];
             let targetValue = a[j][i];
-            console.log(`Target value: ${targetValue}`);
             let factor = -((targetValue)/currentValue);
-            console.log(`Current factor: ${factor}`);
+            // console.log(`Target value: ${targetValue}`);
+            // console.log(`Current factor: ${factor}`);
 
             let values = currentRow.map(v => v * factor);
             let addedValues = nextRow.map((v, index) => v + values[index]);
@@ -111,14 +113,78 @@ let calculateDeterminant = (a) => {
         determinant *= a[i][i];
 
     console.log(`The determinant is: ${determinant.toFixed(4)}`)
-}
+};
 
+// calculateDeterminant(test_a)
 
-calculateDeterminant(test_a)
+let createInverseMatrix = (a) => {
+    let result = createIdentityMatrix(a.length);
 
+    for(let i = 0; i < a.length; i++) {
+        let currentRow = a[i];
+        let currentValue = a[i][i];
 
+        // Can be combined
+        if(currentValue != 1) {
+            // Plus zero to fix a weird quirk with JS and negative zeroes.
+            let multipliedValues = currentRow.map(v => (v * (1/currentValue)) + 0);         
+            a[i] = multipliedValues;
 
+            // For inverse
+            result[i] = result[i].map(v => (v * (1/currentValue)));
 
+        }
+        
+        // Exit first set of loops.
+        if(i === (a.length - 1)) break;
+        
+        for(let j = (i+1); j < a.length; j++) {
+            let nextRow = a[j];
+            let targetValue = a[j][i];
+            let factor = -((targetValue)/currentValue);
+
+            let values = currentRow.map(v => v * factor);
+
+            let addedValues = nextRow.map((v, index) => v + values[index]);            
+            a[j] = addedValues;
+
+            // For inverse, add currentValue to the equation.
+            let invertedValues = result[i].map(v => (v * factor * currentValue) + 0);
+            result[j] = result[j].map((v, index) => v + invertedValues[index]);
+            
+        }
+    }
+
+    /* Matrix now looks like this:
+        [1, value, value]
+        [0,    1,  value]
+        [0,    0,    1  ]
+    */
+
+    for(let i = (a.length -1); i > 0; i--) {
+        let currentRow = a[i];
+        let currentValue = a[i][i];
+
+        for(let j = (i-1); j > -1; j--) {
+            let nextRow = a[j];
+            let targetValue = a[j][i];
+            let factor = -((targetValue)/currentValue);
+
+            let values = currentRow.map(v => v * factor);
+            let addedValues = nextRow.map((v, index) => v + values[index]);
+            
+            a[j] = addedValues;
+
+            let invertedValues = result[i].map(v => (v * factor * currentValue) + 0);
+            result[j] = result[j].map((v, index) => v + invertedValues[index]);
+        }
+    }
+
+    console.log(a);
+    console.log(result);
+};
+
+createInverseMatrix(test_a);
 
 let createMatrix = (matrix, size) => {
     let result = [];
@@ -154,6 +220,6 @@ let decreaseMatrixSize = (matrix, targetSize) => {
         newMatrix[i].pop(); // Removes the last column of each row.
 
     return newMatrix;
-}
+};
 
 export { createMatrix, increaseMatrixSize, decreaseMatrixSize };
