@@ -175,6 +175,7 @@ let createInverseMatrix = (a) => {
             
             a[j] = addedValues;
 
+            // For inverse
             let invertedValues = result[i].map(v => (v * factor * currentValue) + 0);
             result[j] = result[j].map((v, index) => v + invertedValues[index]);
         }
