@@ -29,7 +29,7 @@ input[type=number] {
 .math_operations {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     gap: 12px;
 }
 
@@ -40,4 +40,5 @@ input[type=number] {
     gap: 5px;
     border: 1px solid lightgray;
     padding: 5px;
+    margin-bottom: 10px;
 }
