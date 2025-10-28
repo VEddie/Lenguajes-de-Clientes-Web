@@ -126,15 +126,11 @@ let calculateDeterminant = (a) => {
     for (let i = 0; i < (a.length - 1); i++) {
         let currentRow = a[i];
         let currentValue = a[i][i];
-        // console.log(`Current row: ${currentRow}`);
-        // console.log(`Current value: ${currentValue}`);
 
         for (let j = (i + 1); j < a.length; j++) {
             let nextRow = a[j];
             let targetValue = a[j][i];
             let factor = -((targetValue) / currentValue);
-            // console.log(`Target value: ${targetValue}`);
-            // console.log(`Current factor: ${factor}`);
 
             let values = currentRow.map(v => v * factor);
             let addedValues = nextRow.map((v, index) => v + values[index]);
