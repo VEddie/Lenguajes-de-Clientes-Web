@@ -1,7 +1,10 @@
 import { createMatrix, increaseMatrixSize, decreaseMatrixSize } from "./matrix.js";
 
 /* TO DO: 
-    
+    - Add every function from matrix.js.
+    - Refactor some of the matrix.js functions for optimization.
+    - Add a function that display a result from any operation.
+    - Make it look prettier, for goodness sake.
 */
 
 let matrix_a = [
@@ -29,6 +32,15 @@ let increaseButton = document.getElementById('increase');
 let decreaseButton = document.getElementById('decrease');
 let fillButton = document.getElementById('randomValues');
 let clearButton = document.getElementById('clear');
+let sumButton = document.getElementById('sum');
+let subtractButton = document.getElementById('subtract');
+let multiplyButton = document.getElementById('multiply');
+let multiplyByButton = document.getElementById('multiplyBy');
+let multiplyValue = document.getElementById('multiplyValue');
+let transposeButton = document.getElementById('transpose');
+let determinantButton = document.getElementById('determinant');
+let inverseButton = document.getElementById('inverse');
+let identityButton = document.getElementById('identity');
 
 let loadMatrices = (operation) => {
     for(let i = 0; i < matrices.length; i++) {

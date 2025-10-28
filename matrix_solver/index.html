@@ -10,6 +10,7 @@
     <div class="container">
 
         <div class="inputs">
+            <p>3x3</p>
             <div id="matrix_a" class="matrix">
                 <input type="number" value="0">
                 <input type="number" value="0">
@@ -21,12 +22,16 @@
                 <input type="number" value="0">
                 <input type="number" value="0">
             </div>
-            <!-- <button class="swap">Swap</button> -->
-             <button id="increase">Increase</button>
-             <button id="decrease">Decrease</button>
-             <button id="randomValues">Fill</button>
-             <button id="clear">Clear</button>
-    
+
+            <div class="change_operations">
+                <button id="increase">+</button>
+                <button id="decrease">-</button>
+                <button id="swap">Swap</button>
+                <button id="randomValues">Fill</button>
+                <button id="clear">Clear</button>
+            </div>
+            
+            <p>3x3</p>
             <div id="matrix_b" class="matrix">
                 <input type="number" value="0">
                 <input type="number" value="0">
@@ -40,8 +45,18 @@
             </div>
         </div>
 
-        <div class="operations">
-            <p>Operations go here.</p>
+        <div class="math_operations">
+            <button id="sum">Sum</button>
+            <button id="subtract">Subtract</button>
+            <button id="multiply">Multiply</button>
+            <div>
+                <button id="multiplyBy">Multiply by</button>
+                <input id="multiplyValue" type="number" value="0">
+            </div>
+            <button id="transpose">Transpose</button>
+            <button id="determinant">Determinant</button>
+            <button id="inverse">Inverse</button>
+            <button id="identity">Identity</button>
         </div>
 
         <div class="results">
