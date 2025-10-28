@@ -14,10 +14,11 @@ import {
     from "./matrix.js";
 
 /* TO DO: 
-    - Add every function from matrix.js. []
+    - Add every function from matrix.js. [✔]
     - Refactor some of the matrix.js functions for optimization. []
     - Add a function that displays a result from any operation. [✔]
     - Make it look prettier, for goodness sake. []
+    - Fix inverse matrix results overflowing the inputs. []
 */
 
 let matrix_a = [
