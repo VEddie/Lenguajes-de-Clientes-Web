@@ -193,7 +193,7 @@ let createMatrix = (array, size) => {
     if(array.length % size !== 0) return;
 
     for(let i = 0; i < array.length; i+= size) 
-        result.push(array.slice(i, i + size));    
+        result.push(array.slice(i, i + size));
     
     return result;
 };
