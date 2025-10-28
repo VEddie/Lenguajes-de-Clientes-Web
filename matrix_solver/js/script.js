@@ -1,13 +1,13 @@
 import { createMatrix, increaseMatrixSize, decreaseMatrixSize } from "./matrix.js";
 
 /* TO DO: 
-    - Refactor the updateMatrices function to be more generic.
+    
 */
 
 let matrix_a = [
-    [5, 0, 0],
-    [0, 5, 0],
-    [0, 0, 5]
+    [5, 2, 8],
+    [3, 5, 4],
+    [1, 6, 5]
 ];
 
 let matrix_b = [
@@ -29,23 +29,6 @@ let increaseButton = document.getElementById('increase');
 let decreaseButton = document.getElementById('decrease');
 let fillButton = document.getElementById('randomValues');
 let clearButton = document.getElementById('clear');
-
-
-// let copyMatrix = (matrix, size) => {
-//     let newMatrix = [];
-//     for(let i = 0; i < size; i++) {
-//         let row = new Array(size).fill(0);
-//         newMatrix.push(row);
-//     }
-    
-//     for(let i = 0; i < matrix.length; i++) {
-//         for(let j = 0; j < matrix[i].length; j++) 
-//             newMatrix[i][j] = matrix[i][j];
-        
-//     }
-
-//     return newMatrix;
-// };
 
 let loadMatrices = (operation) => {
     for(let i = 0; i < matrices.length; i++) {
@@ -110,6 +93,7 @@ increaseButton.addEventListener('click', () => {
     
     inputCount = (currentSize ** 2);
 
+    // Load current values, maintaining their order.
     loadMatrices();
 
 });
@@ -120,6 +104,7 @@ decreaseButton.addEventListener('click', () => {
         return;
     }
 
+    updateMatrices();
     currentSize--;
     
     for(let i = 0; i < matrices.length; i++) {
@@ -127,11 +112,13 @@ decreaseButton.addEventListener('click', () => {
 
         for(let j = inputCount; j > (currentSize ** 2); j--) 
             matrices[i].removeChild(matrices[i].firstElementChild);
+
+        inputValues[i] = decreaseMatrixSize(inputValues[i], currentSize);
     }
 
-    testMatrix = decreaseMatrixSize(testMatrix, currentSize)
+    
     inputCount = (currentSize ** 2);
-    updateMatrices();
+    loadMatrices();
     
 });
 
