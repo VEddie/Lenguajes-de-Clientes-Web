@@ -179,11 +179,11 @@ sumButton.addEventListener('click', () => {
     // Update inputValues before calculation.    
     updateMatrices();
 
-    let paragraphResult = document.createElement('p');
-    paragraphResult.textContent = 'Sum result:';
-
     let sumMatrix = sumMatrices(inputValues[0], inputValues[1]);
     let result = loadResult(sumMatrix);
+
+    let paragraphResult = document.createElement('p');
+    paragraphResult.textContent = 'Sum result:';
     
     results.appendChild(result);
     results.appendChild(paragraphResult);
@@ -192,11 +192,11 @@ sumButton.addEventListener('click', () => {
 subtractButton.addEventListener('click', () => {    
     updateMatrices();
 
-    let paragraphResult = document.createElement('p');
-    paragraphResult.textContent = 'Substraction result:';
-
     let subtractMatrix = subtractMatrices(inputValues[0], inputValues[1]);
     let result = loadResult(subtractMatrix);
+
+    let paragraphResult = document.createElement('p');
+    paragraphResult.textContent = 'Substraction result:';
     
     results.appendChild(result);
     results.appendChild(paragraphResult);
@@ -205,11 +205,11 @@ subtractButton.addEventListener('click', () => {
 multiplyButton.addEventListener('click', () => {
     updateMatrices();
 
-    let paragraphResult = document.createElement('p');
-    paragraphResult.textContent = 'Multiplication result:';
-
     let multiplyMatrix = multiplyMatrices(inputValues[0], inputValues[1]);
     let result = loadResult(multiplyMatrix);
+
+    let paragraphResult = document.createElement('p');
+    paragraphResult.textContent = 'Multiplication result:';
     
     results.appendChild(result);
     results.appendChild(paragraphResult);
@@ -219,11 +219,11 @@ multiplyByButton.addEventListener('click', () => {
     updateMatrices();
     let value = parseFloat(multiplyByInput.value);
 
-    let paragraphResult = document.createElement('p');
-    paragraphResult.textContent = `Matrix A multiplied by ${value}:`;
-
     let multiplyByMatrix = multiplyBy(value, inputValues[0]);
     let result = loadResult(multiplyByMatrix);
+
+    let paragraphResult = document.createElement('p');
+    paragraphResult.textContent = `Matrix A multiplied by ${value}:`;
     
     results.appendChild(result);
     results.appendChild(paragraphResult);
@@ -232,11 +232,11 @@ multiplyByButton.addEventListener('click', () => {
 transposeButton.addEventListener('click', () => {
     updateMatrices();
 
-    let paragraphResult = document.createElement('p');
-    paragraphResult.textContent = 'Matrix A transpose result:';
-
     let transposedMatrix = transposeMatrix(inputValues[0]);
     let result = loadResult(transposedMatrix);
+
+    let paragraphResult = document.createElement('p');
+    paragraphResult.textContent = 'Matrix A transpose result:';
     
     results.appendChild(result);
     results.appendChild(paragraphResult);
@@ -244,7 +244,7 @@ transposeButton.addEventListener('click', () => {
 
 determinantButton.addEventListener('click', () => {
     updateMatrices();
-
+    
     let determinant = calculateDeterminant(inputValues[0]);
     let paragraphResult = document.createElement('p');
     paragraphResult.textContent = `The determinant is ${determinant}`;
@@ -255,11 +255,16 @@ determinantButton.addEventListener('click', () => {
 inverseButton.addEventListener('click', () => {
     updateMatrices();
 
-    let paragraphResult = document.createElement('p');
-    paragraphResult.textContent = 'Matrix A inverse result:';
+    if(calculateDeterminant(inputValues[0]) == 0) {
+        alert('The determinant is 0, cannot invert matrix.');
+        return;
+    };
 
     let inverseMatrix = createInverseMatrix(inputValues[0]);
     let result = loadResult(inverseMatrix);
+
+    let paragraphResult = document.createElement('p');
+    paragraphResult.textContent = 'Matrix A inverse result:';
     
     results.appendChild(result);
     results.appendChild(paragraphResult);
@@ -281,4 +286,5 @@ container.addEventListener('click', () => {
     results.scrollTop = -results.scrollHeight;
 });
 
+// Load matrices on startup, remove after project is done.
 window.addEventListener('load', loadMatrices);

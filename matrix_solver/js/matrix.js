@@ -1,16 +1,3 @@
-let test_a = [
-    [3, 5, 9],
-    [2, 4, 7],
-    [8, 3, 6]
-];
-
-let test_b = [
-    [3, 5, 7],
-    [1, 9, 2],
-    [7, 1, 4]
-];
-
-
 let createIdentityMatrix = (size) => {
     let result = [];
     for (let i = 0; i < size; i++) {
@@ -37,7 +24,6 @@ let increaseMatrixSize = (matrix, targetSize) => {
     // Deep copy of the original.
     let newMatrix = window.structuredClone(matrix);
 
-    // Fix this later.
     for (let i = 0; i < targetSize - 1; i++)
         newMatrix[i].push(0);
 
@@ -109,7 +95,6 @@ let multiplyBy = (value, a) => {
 };
 
 
-
 let transposeMatrix = (a) => {
     let result = createIdentityMatrix(a.length);
     for (let i = 0; i < a.length; i++)
@@ -119,37 +104,97 @@ let transposeMatrix = (a) => {
     return result;
 };
 
+let checkForZeroes = (a) => {
+    let matrix = window.structuredClone(a);
+    let hasZeroes = true;
 
-// Change variable names for clarity sake.
+    // Check rows
+    for(let i = 0; i < matrix.length; i++) 
+        if(matrix[i].reduce((total, value) => total + value) === 0) return hasZeroes;
+    
+    // Check columns
+    matrix = transposeMatrix(matrix);
+    for(let j = 0; j < matrix.length; j++) 
+        if(matrix[j].reduce((total, value) => total + value) === 0) return hasZeroes;
+    
+    return !hasZeroes;
+
+};
+
+// Takes a matrix and an index.
+let swapMatrixRows = (a, i) => {
+    let matrix = window.structuredClone(a);
+    let cellValue = matrix[i][i];
+
+    for(let j = (i + 1); i < matrix.length; j++) {
+        if(cellValue !== matrix[j][i]) {
+            let aux = matrix[j];
+            matrix[j] = matrix[i].map(v => (v * (-1) + 0)); // Swapped rows are multiplied by -1
+            matrix[i] = aux;
+            break; 
+        }
+    }
+    
+    return matrix;
+};
+
+
 
 let calculateDeterminant = (a) => {
-    for (let i = 0; i < (a.length - 1); i++) {
-        let currentRow = a[i];
-        let currentValue = a[i][i];
+    let matrix = window.structuredClone(a);
+    if(checkForZeroes(matrix)) return 0;
 
-        for (let j = (i + 1); j < a.length; j++) {
-            let nextRow = a[j];
-            let targetValue = a[j][i];
-            let factor = -((targetValue) / currentValue);
+    for (let i = 0; i < (matrix.length - 1); i++) {
+        let currentCellValue = matrix[i][i];
+
+        // Switch first row with a different row if the first value happens to be zero.
+        if(currentCellValue === 0)
+            matrix = swapMatrixRows(matrix, i);
+
+        let currentRow = matrix[i];
+
+        // console.log(JSON.parse(JSON.stringify(matrix)));
+        console.log(currentRow);
+
+        for (let j = (i + 1); j < matrix.length; j++) {
+            let nextRow = matrix[j];
+            let targetValue = matrix[j][i];
+
+            if(targetValue === 0) continue;
+
+            let factor = -((targetValue) / currentCellValue);
+
+            console.log(nextRow);
+
+            // Check if any column has zeroes.
+            if(targetValue === 0 && currentCellValue === 0)
+                factor = 0;
 
             let values = currentRow.map(v => v * factor);
             let addedValues = nextRow.map((v, index) => v + values[index]);
 
-            a[j] = addedValues;
-            console.log(addedValues);
-
+            matrix[j] = addedValues;
         }
     }
 
+    console.log(JSON.parse(JSON.stringify(matrix)));
+
     let determinant = 1;
-    for (let i = 0; i < a.length; i++)
-        determinant *= a[i][i];
+    for (let i = 0; i < matrix.length; i++)
+        determinant *= matrix[i][i];
 
     return determinant.toFixed(4);
 };
 
 let createInverseMatrix = (a) => {
     let result = createIdentityMatrix(a.length);
+
+    // Check if the first column has zeroes
+    for(let i = 0; i < a.length; i++) {
+        for(let j = 0; j < a.length; j++) {
+
+        }
+    }
 
     for (let i = 0; i < a.length; i++) {
         let currentRow = a[i];
