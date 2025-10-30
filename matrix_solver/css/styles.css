@@ -3,13 +3,21 @@
 }
 
 body {
-    background-color: #3C4142;
-    color: white;
+    background-color: #F9EBDE;
+    color: #815854;
 }
 
 input {
     width: 60px;
     text-align: center;
+}
+
+button {
+    background-color: #815854;
+    color: #F9EBDE;
+    padding: 5px;
+    border-radius: 12px;
+    border: none;
 }
 
 .container {
@@ -20,9 +28,9 @@ input {
     align-items: center;
     width: 95vw;
     height: 80vh;
-    border: 3px solid lightgray;
+    border: 3px solid #815854;
     gap: 5px;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .matrix {
@@ -51,10 +59,10 @@ input {
 .results {
     display: flex;
     flex-direction: column-reverse;
-    height: 50vh;
+    align-items: center;
+    height: 75vh;
     overflow: hidden auto;
 }
-
 
 @media (max-width: 900px) {
     .container {
