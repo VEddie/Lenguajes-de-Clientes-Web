@@ -62,13 +62,12 @@ let loadResult = (matrix) => {
     div.style.gridTemplateColumns = `repeat(${matrix.length}, 1fr)`;
 
     for (let i = 0; i < matrix.length; i++) {
-        for(let j = 0; j < matrix[i].length; j++) {
+        for (let j = 0; j < matrix[i].length; j++) {
             let input = document.createElement('input');
-            input.type = 'text';
+            input.type = 'number';
             input.value = matrix[i][j];
             input.disabled = true;
-            input.maxLength = 5;
-            
+
             div.appendChild(input);
         }
     }
@@ -184,12 +183,12 @@ sumButton.addEventListener('click', () => {
 
     let paragraphResult = document.createElement('p');
     paragraphResult.textContent = 'Sum result:';
-    
+
     results.appendChild(result);
     results.appendChild(paragraphResult);
 });
 
-subtractButton.addEventListener('click', () => {    
+subtractButton.addEventListener('click', () => {
     updateMatrices();
 
     let subtractMatrix = subtractMatrices(inputValues[0], inputValues[1]);
@@ -197,7 +196,7 @@ subtractButton.addEventListener('click', () => {
 
     let paragraphResult = document.createElement('p');
     paragraphResult.textContent = 'Substraction result:';
-    
+
     results.appendChild(result);
     results.appendChild(paragraphResult);
 });
@@ -210,7 +209,7 @@ multiplyButton.addEventListener('click', () => {
 
     let paragraphResult = document.createElement('p');
     paragraphResult.textContent = 'Multiplication result:';
-    
+
     results.appendChild(result);
     results.appendChild(paragraphResult);
 });
@@ -224,7 +223,7 @@ multiplyByButton.addEventListener('click', () => {
 
     let paragraphResult = document.createElement('p');
     paragraphResult.textContent = `Matrix A multiplied by ${value}:`;
-    
+
     results.appendChild(result);
     results.appendChild(paragraphResult);
 });
@@ -237,14 +236,14 @@ transposeButton.addEventListener('click', () => {
 
     let paragraphResult = document.createElement('p');
     paragraphResult.textContent = 'Matrix A transpose result:';
-    
+
     results.appendChild(result);
     results.appendChild(paragraphResult);
 });
 
 determinantButton.addEventListener('click', () => {
     updateMatrices();
-    
+
     let determinant = calculateDeterminant(inputValues[0]);
     let paragraphResult = document.createElement('p');
     paragraphResult.textContent = `The determinant is ${determinant}`;
@@ -255,7 +254,7 @@ determinantButton.addEventListener('click', () => {
 inverseButton.addEventListener('click', () => {
     updateMatrices();
 
-    if(calculateDeterminant(inputValues[0]) == 0) {
+    if (calculateDeterminant(inputValues[0]) == 0) {
         alert('The determinant is 0, cannot invert matrix.');
         return;
     };
@@ -263,9 +262,14 @@ inverseButton.addEventListener('click', () => {
     let inverseMatrix = createInverseMatrix(inputValues[0]);
     let result = loadResult(inverseMatrix);
 
+    // 3 decimal points to display on cells.
+    [...result.children].forEach(input => {
+        input.value = parseFloat(input.value).toFixed(3);
+    });
+
     let paragraphResult = document.createElement('p');
     paragraphResult.textContent = 'Matrix A inverse result:';
-    
+
     results.appendChild(result);
     results.appendChild(paragraphResult);
 });
@@ -278,7 +282,7 @@ identityButton.addEventListener('click', () => {
 
     results.appendChild(result);
     results.appendChild(paragraphResult);
-    
+
 });
 
 // Scrolls the results bar to the top after any operation.

@@ -1,23 +1,23 @@
 let createIdentityMatrix = (size) => {
-    let result = [];
+    let matrix = [];
     for (let i = 0; i < size; i++) {
         let row = new Array(size).fill(0);
         row[i] = 1;
-        result.push(row);
+        matrix.push(row);
     }
 
-    return result;
+    return matrix;
 };
 
 let createMatrix = (array, size) => {
-    let result = [];
+    let matrix = [];
 
     if (array.length % size !== 0) return;
 
     for (let i = 0; i < array.length; i += size)
-        result.push(array.slice(i, i + size));
+        matrix.push(array.slice(i, i + size));
 
-    return result;
+    return matrix;
 };
 
 let increaseMatrixSize = (matrix, targetSize) => {
@@ -45,63 +45,63 @@ let decreaseMatrixSize = (matrix, targetSize) => {
 };
 
 let sumMatrices = (a, b) => {
-    let result = [];
+    let matrix = [];
     for (let i = 0; i < a.length; i++) {
-        result.push([]);
+        matrix.push([]);
         for (let j = 0; j < a[i].length; j++)
-            result[i].push(a[i][j] + b[i][j])
+            matrix[i].push(a[i][j] + b[i][j])
     }
 
-    return result;
+    return matrix;
 };
 
 let subtractMatrices = (a, b) => {
-    let result = [];
+    let matrix = [];
     for (let i = 0; i < a.length; i++) {
-        result.push([]);
+        matrix.push([]);
         for (let j = 0; j < a[i].length; j++)
-            result[i].push(a[i][j] - b[i][j])
+            matrix[i].push(a[i][j] - b[i][j])
     }
 
-    return result;
+    return matrix;
 };
 
 let multiplyMatrices = (a, b) => {
-    let result = [];
+    let matrix = [];
     for (let i = 0; i < a.length; i++) {
-        result.push([]);
+        matrix.push([]);
         for (let j = 0; j < a[i].length; j++) {
             let sum = 0;
             for (let k = 0; k < b[i].length; k++) {
                 sum += a[i][k] * b[k][j];
             }
-            result[i].push(sum);
+            matrix[i].push(sum);
         }
     }
 
-    return result;
+    return matrix;
 
 };
 
 let multiplyBy = (value, a) => {
-    let result = [];
+    let matrix = [];
     for (let i = 0; i < a.length; i++) {
-        result.push([]);
+        matrix.push([]);
         for (let j = 0; j < a[i].length; j++)
-            result[i].push(value * a[i][j]);
+            matrix[i].push(value * a[i][j]);
     }
 
-    return result;
+    return matrix;
 };
 
 
 let transposeMatrix = (a) => {
-    let result = createIdentityMatrix(a.length);
+    let matrix = createIdentityMatrix(a.length);
     for (let i = 0; i < a.length; i++)
         for (let j = 0; j < a[i].length; j++)
-            result[j][i] = a[i][j];
+            matrix[j][i] = a[i][j];
 
-    return result;
+    return matrix;
 };
 
 let checkForZeroes = (a) => {
@@ -155,11 +155,11 @@ let calculateDeterminant = (a) => {
 
         for (let j = (i + 1); j < matrix.length; j++) {
             let nextRow = matrix[j];
-            let targetValue = matrix[j][i];
+            let targetCellValue = matrix[j][i];
 
-            if(targetValue === 0) continue;
+            if(targetCellValue === 0) continue;
 
-            let factor = -((targetValue) / currentCellValue);       
+            let factor = -((targetCellValue) / currentCellValue);       
 
             let values = currentRow.map(v => v * factor);
             let addedValues = nextRow.map((v, index) => v + values[index]);
@@ -176,79 +176,78 @@ let calculateDeterminant = (a) => {
 };
 
 let createInverseMatrix = (a) => {
-    let result = createIdentityMatrix(a.length);
+    if(calculateDeterminant(a) == 0) return;
+    
+    let matrix = window.structuredClone(a);
+    let inverseMatrix = createIdentityMatrix(a.length);
 
-    // Check if the first column has zeroes
-    for(let i = 0; i < a.length; i++) {
-        for(let j = 0; j < a.length; j++) {
+    // Lower triangle loops.
+    for (let i = 0; i < matrix.length; i++) {
+        let currentRow = matrix[i];
+        let currentCellValue = matrix[i][i];
 
+        if(currentCellValue === 0) {
+            matrix = swapMatrixRows(matrix, i);
+            currentCellValue = matrix[i][i];
         }
-    }
-
-    for (let i = 0; i < a.length; i++) {
-        let currentRow = a[i];
-        let currentValue = a[i][i];
 
         // Can be combined
-        if (currentValue != 1) {
+        if (currentCellValue != 1) {
             // Plus zero to fix a weird quirk with JS and negative zeroes.
-            let multipliedValues = currentRow.map(v => (v * (1 / currentValue)) + 0);
-            a[i] = multipliedValues;
+            let multipliedValues = currentRow.map(v => (v * (1 / currentCellValue)) + 0);
+            matrix[i] = multipliedValues;
 
             // For inverse
-            result[i] = result[i].map(v => (v * (1 / currentValue)));
+            inverseMatrix[i] = inverseMatrix[i].map(v => (v * (1 / currentCellValue)));
 
         }
 
         // Exit first set of loops.
-        if (i === (a.length - 1)) break;
+        if (i === (matrix.length - 1)) break;
 
-        for (let j = (i + 1); j < a.length; j++) {
-            let nextRow = a[j];
-            let targetValue = a[j][i];
-            let factor = -((targetValue) / currentValue);
+        for (let j = (i + 1); j < matrix.length; j++) {
+            let nextRow = matrix[j];
+            let targetCellValue = matrix[j][i];
+
+            if(targetCellValue === 0) continue;
+
+            let factor = -((targetCellValue) / currentCellValue);
 
             let values = currentRow.map(v => v * factor);
-
             let addedValues = nextRow.map((v, index) => v + values[index]);
-            a[j] = addedValues;
+            matrix[j] = addedValues;
 
             // For inverse, add currentValue to the equation.
-            let invertedValues = result[i].map(v => (v * factor * currentValue) + 0);
-            result[j] = result[j].map((v, index) => v + invertedValues[index]);
+            let invertedValues = inverseMatrix[i].map(v => (v * factor * currentCellValue) + 0);
+            inverseMatrix[j] = inverseMatrix[j].map((v, index) => v + invertedValues[index]);
 
         }
     }
 
-    /* Matrix now looks like this:
-        [1, value, value]
-        [0,    1,  value]
-        [0,    0,    1  ]
-    */
+    console.log(JSON.parse(JSON.stringify(matrix)));
 
-    for (let i = (a.length - 1); i > 0; i--) {
-        let currentRow = a[i];
-        let currentValue = a[i][i];
+
+    // Upper triangle loops.
+    for (let i = (matrix.length - 1); i > 0; i--) {
+        let currentRow = matrix[i];
+        let currentCellValue = matrix[i][i];
 
         for (let j = (i - 1); j > -1; j--) {
-            let nextRow = a[j];
-            let targetValue = a[j][i];
-            let factor = -((targetValue) / currentValue);
+            let nextRow = matrix[j];
+            let targetCellValue = matrix[j][i];
+            let factor = -((targetCellValue) / currentCellValue);
 
             let values = currentRow.map(v => v * factor);
             let addedValues = nextRow.map((v, index) => v + values[index]);
 
-            a[j] = addedValues;
+            matrix[j] = addedValues;
 
             // For inverse
-            let invertedValues = result[i].map(v => (v * factor * currentValue) + 0);
-            result[j] = result[j].map((v, index) => v + invertedValues[index]);
+            let invertedValues = inverseMatrix[i].map(v => (v * factor * currentCellValue) + 0);
+            inverseMatrix[j] = inverseMatrix[j].map((v, index) => v + invertedValues[index]);
         }
     }
-
-    // console.log(a);
-    // console.log(result);
-    return result;
+    return inverseMatrix;
 };
 
 
