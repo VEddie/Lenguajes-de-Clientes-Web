@@ -138,8 +138,6 @@ let swapMatrixRows = (a, i) => {
     return matrix;
 };
 
-
-
 let calculateDeterminant = (a) => {
     let matrix = window.structuredClone(a);
     if(checkForZeroes(matrix)) return 0;
@@ -147,14 +145,13 @@ let calculateDeterminant = (a) => {
     for (let i = 0; i < (matrix.length - 1); i++) {
         let currentCellValue = matrix[i][i];
 
-        // Switch first row with a different row if the first value happens to be zero.
-        if(currentCellValue === 0)
+        // Switch row with a different row if the first value happens to be zero.
+        if(currentCellValue === 0) {
             matrix = swapMatrixRows(matrix, i);
-
+            currentCellValue = matrix[i][i];
+        }
+            
         let currentRow = matrix[i];
-
-        // console.log(JSON.parse(JSON.stringify(matrix)));
-        console.log(currentRow);
 
         for (let j = (i + 1); j < matrix.length; j++) {
             let nextRow = matrix[j];
@@ -162,13 +159,7 @@ let calculateDeterminant = (a) => {
 
             if(targetValue === 0) continue;
 
-            let factor = -((targetValue) / currentCellValue);
-
-            console.log(nextRow);
-
-            // Check if any column has zeroes.
-            if(targetValue === 0 && currentCellValue === 0)
-                factor = 0;
+            let factor = -((targetValue) / currentCellValue);       
 
             let values = currentRow.map(v => v * factor);
             let addedValues = nextRow.map((v, index) => v + values[index]);
@@ -176,8 +167,6 @@ let calculateDeterminant = (a) => {
             matrix[j] = addedValues;
         }
     }
-
-    console.log(JSON.parse(JSON.stringify(matrix)));
 
     let determinant = 1;
     for (let i = 0; i < matrix.length; i++)
