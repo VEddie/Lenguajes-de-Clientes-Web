@@ -95,7 +95,7 @@ let loadMatrices = (operation) => {
             }
         }
     }
-}
+};
 
 let updateMatrices = () => {
     for (let i = 0; i < matrices.length; i++) {
@@ -107,7 +107,7 @@ let updateMatrices = () => {
             for (let k = 0; k < currentSize; k++)
                 inputValues[i][j][k] = inputMatrix[j][k];
     }
-}
+};
 
 increaseButton.addEventListener('click', () => {
     if (currentSize === 10) {
@@ -186,8 +186,8 @@ sumButton.addEventListener('click', () => {
     let sumMatrix = sumMatrices(inputValues[0], inputValues[1]);
     let result = loadResult(sumMatrix);
     
-    results.appendChild(paragraphResult);
     results.appendChild(result);
+    results.appendChild(paragraphResult);
 });
 
 subtractButton.addEventListener('click', () => {    
@@ -199,8 +199,8 @@ subtractButton.addEventListener('click', () => {
     let subtractMatrix = subtractMatrices(inputValues[0], inputValues[1]);
     let result = loadResult(subtractMatrix);
     
-    results.appendChild(paragraphResult);
     results.appendChild(result);
+    results.appendChild(paragraphResult);
 });
 
 multiplyButton.addEventListener('click', () => {
@@ -212,8 +212,8 @@ multiplyButton.addEventListener('click', () => {
     let multiplyMatrix = multiplyMatrices(inputValues[0], inputValues[1]);
     let result = loadResult(multiplyMatrix);
     
-    results.appendChild(paragraphResult);
     results.appendChild(result);
+    results.appendChild(paragraphResult);
 });
 
 multiplyByButton.addEventListener('click', () => {
@@ -226,8 +226,8 @@ multiplyByButton.addEventListener('click', () => {
     let multiplyByMatrix = multiplyBy(value, inputValues[0]);
     let result = loadResult(multiplyByMatrix);
     
-    results.appendChild(paragraphResult);
     results.appendChild(result);
+    results.appendChild(paragraphResult);
 });
 
 transposeButton.addEventListener('click', () => {
@@ -239,8 +239,8 @@ transposeButton.addEventListener('click', () => {
     let transposedMatrix = transposeMatrix(inputValues[0]);
     let result = loadResult(transposedMatrix);
     
-    results.appendChild(paragraphResult);
     results.appendChild(result);
+    results.appendChild(paragraphResult);
 });
 
 determinantButton.addEventListener('click', () => {
@@ -262,8 +262,8 @@ inverseButton.addEventListener('click', () => {
     let inverseMatrix = createInverseMatrix(inputValues[0]);
     let result = loadResult(inverseMatrix);
     
-    results.appendChild(paragraphResult);
     results.appendChild(result);
+    results.appendChild(paragraphResult);
 });
 
 identityButton.addEventListener('click', () => {
@@ -272,8 +272,8 @@ identityButton.addEventListener('click', () => {
 
     let result = loadResult(createIdentityMatrix(currentSize));
 
-    results.appendChild(paragraphResult);
     results.appendChild(result);
+    results.appendChild(paragraphResult);
 });
 
 window.addEventListener('load', loadMatrices);

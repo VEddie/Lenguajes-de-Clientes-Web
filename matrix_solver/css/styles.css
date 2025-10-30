@@ -14,11 +14,26 @@ input {
 
 .container {
     display: flex;
-    justify-content: space-evenly;
-    border: 3px solid lightgray;
     flex-direction: row;
-    gap: 10px;
+    justify-content: space-around;
+    justify-self: center;
+    align-items: center;
+    width: 95vw;
+    height: 100vh;
+    border: 3px solid lightgray;
+    gap: 5px;
 }
+
+.matrix {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    gap: 5px;
+    border: 1px solid lightgray;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
 
 .change_operations {
     display: flex;
@@ -33,12 +48,16 @@ input {
     gap: 12px;
 }
 
-.matrix {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    justify-items: center;
-    gap: 5px;
-    border: 1px solid lightgray;
-    padding: 5px;
-    margin-bottom: 10px;
+.results {
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-y: auto;
+}
+
+
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+        gap: 30px;
+    }
 }
