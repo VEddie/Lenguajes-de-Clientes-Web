@@ -168,6 +168,7 @@ let calculateDeterminant = (a) => {
         }
     }
 
+
     let determinant = 1;
     for (let i = 0; i < matrix.length; i++)
         determinant *= matrix[i][i];
@@ -183,13 +184,16 @@ let createInverseMatrix = (a) => {
 
     // Lower triangle loops.
     for (let i = 0; i < matrix.length; i++) {
-        let currentRow = matrix[i];
         let currentCellValue = matrix[i][i];
 
         if(currentCellValue === 0) {
             matrix = swapMatrixRows(matrix, i);
+            inverseMatrix = swapMatrixRows(inverseMatrix, i);
             currentCellValue = matrix[i][i];
         }
+
+        // IMPORTANT, ALWAYS CHECK CURRENT ROW *AFTER* CHECKING THE CELL FOR ZEROES.
+        let currentRow = matrix[i];
 
         // Can be combined
         if (currentCellValue != 1) {
@@ -199,7 +203,6 @@ let createInverseMatrix = (a) => {
 
             // For inverse
             inverseMatrix[i] = inverseMatrix[i].map(v => (v * (1 / currentCellValue)));
-
         }
 
         // Exit first set of loops.
@@ -223,9 +226,6 @@ let createInverseMatrix = (a) => {
 
         }
     }
-
-    console.log(JSON.parse(JSON.stringify(matrix)));
-
 
     // Upper triangle loops.
     for (let i = (matrix.length - 1); i > 0; i--) {

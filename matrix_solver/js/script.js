@@ -15,12 +15,10 @@ import {
 
 /* TO DO: 
     - Refactor some of the matrix.js functions for optimization. []
-    - Make it look prettier, for goodness sake. []
-    - Fix inverse matrix results overflowing the inputs. []
 */
 
 let matrix_a = [
-    [5, 2, 8],
+    [0, 0, 1],
     [3, 5, 4],
     [1, 6, 5]
 ];

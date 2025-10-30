@@ -54,6 +54,10 @@ button:hover {
     gap: 5px;
 }
 
+.change_operations > button {
+    width: 40px;
+}
+
 .math_operations {
     display: flex;
     flex-direction: column;
