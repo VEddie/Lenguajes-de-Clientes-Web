@@ -14,9 +14,7 @@ import {
     from "./matrix.js";
 
 /* TO DO: 
-    - Add every function from matrix.js. [✔]
     - Refactor some of the matrix.js functions for optimization. []
-    - Add a function that displays a result from any operation. [✔]
     - Make it look prettier, for goodness sake. []
     - Fix inverse matrix results overflowing the inputs. []
 */
@@ -41,6 +39,7 @@ let inputCount = 9;
 
 // Spread operator forces HTMLCollection to an array.
 let matrices = [...document.getElementsByClassName('matrix')];
+let container = document.querySelector('.container');
 let results = document.querySelector('.results');
 
 let increaseButton = document.getElementById('increase');
@@ -268,12 +267,18 @@ inverseButton.addEventListener('click', () => {
 
 identityButton.addEventListener('click', () => {
     let paragraphResult = document.createElement('p');
-    paragraphResult.textContent = `Identity matrix of ${currentSize} size:`;
+    paragraphResult.textContent = `Identity matrix of size ${currentSize}`;
 
     let result = loadResult(createIdentityMatrix(currentSize));
 
     results.appendChild(result);
     results.appendChild(paragraphResult);
+    
+});
+
+// Scrolls the results bar to the top after any operation.
+container.addEventListener('click', () => {
+    results.scrollTop = -results.scrollHeight;
 });
 
 window.addEventListener('load', loadMatrices);

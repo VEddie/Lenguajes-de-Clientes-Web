@@ -19,9 +19,10 @@ input {
     justify-self: center;
     align-items: center;
     width: 95vw;
-    height: 100vh;
+    height: 80vh;
     border: 3px solid lightgray;
     gap: 5px;
+    overflow: hidden;
 }
 
 .matrix {
@@ -34,7 +35,6 @@ input {
     margin-bottom: 10px;
 }
 
-
 .change_operations {
     display: flex;
     justify-content: left;
@@ -44,14 +44,15 @@ input {
 .math_operations {
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: center;
     gap: 12px;
 }
 
 .results {
     display: flex;
     flex-direction: column-reverse;
-    overflow-y: auto;
+    height: 50vh;
+    overflow: hidden auto;
 }
 
 
