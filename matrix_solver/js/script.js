@@ -17,23 +17,11 @@ import {
     - Refactor some of the matrix.js functions for optimization. []
 */
 
-let matrix_a = [
-    [-8, -8, -4],
-    [-9, 9, -10],
-    [6, -1, 3]
-];
-
-let matrix_b = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
-];
-
-// Matrix cell values.
-let inputValues = [matrix_a, matrix_b];
-
+// Matrix cell settings
 let currentSize = 3;
-let inputCount = 9;
+let inputCount = currentSize ** 2;
+let inputValues = [[[], [], []], [[], [], []]];
+
 
 // Spread operator forces HTMLCollection to an array.
 let matrices = [...document.getElementsByClassName('matrix')];
@@ -314,8 +302,7 @@ container.addEventListener('click', () => {
     results.scrollTop = -results.scrollHeight;
 });
 
-// Load matrices on startup, remove after project is done.
 window.addEventListener('load', () => {
-    loadMatrices();
+    updateMatrices();
     updateParagraphs();
 });
