@@ -38,10 +38,12 @@ let inputCount = 9;
 // Spread operator forces HTMLCollection to an array.
 let matrices = [...document.getElementsByClassName('matrix')];
 let container = document.querySelector('.container');
+let sizeParagraphs = [...document.getElementsByClassName('matrix_size')];
 let results = document.querySelector('.results');
 
 let increaseButton = document.getElementById('increase');
 let decreaseButton = document.getElementById('decrease');
+let swapButon = document.getElementById('swap');
 let fillButton = document.getElementById('randomValues');
 let clearButton = document.getElementById('clear');
 let sumButton = document.getElementById('sum');
@@ -105,6 +107,11 @@ let updateMatrices = () => {
     }
 };
 
+let updateParagraphs = () => {
+    for(let i = 0; i < sizeParagraphs.length; i++)
+        sizeParagraphs[i].textContent = `${currentSize}x${currentSize}`
+};
+
 increaseButton.addEventListener('click', () => {
     if (currentSize === 10) {
         alert('Máximo tamaño permitido es 10x10.');
@@ -135,6 +142,7 @@ increaseButton.addEventListener('click', () => {
 
     // Load current values, maintaining their order.
     loadMatrices();
+    updateParagraphs();
 
 });
 
@@ -159,12 +167,21 @@ decreaseButton.addEventListener('click', () => {
 
     inputCount = (currentSize ** 2);
     loadMatrices();
+    updateParagraphs();
 
+});
+
+swapButon.addEventListener('click', () => {
+    let aux = inputValues[0];
+    inputValues[0] = inputValues[1];
+    inputValues[1] = aux;
+    loadMatrices();
 });
 
 fillButton.addEventListener('click', () => {
     loadMatrices('fill');
     updateMatrices();
+    console.log(JSON.parse(JSON.stringify(inputValues)));
 })
 
 clearButton.addEventListener('click', () => {
@@ -180,6 +197,7 @@ sumButton.addEventListener('click', () => {
     let result = loadResult(sumMatrix);
 
     let paragraphResult = document.createElement('p');
+    paragraphResult.className = 'matrix_label';
     paragraphResult.textContent = 'Sum result:';
 
     results.appendChild(result);
@@ -193,6 +211,7 @@ subtractButton.addEventListener('click', () => {
     let result = loadResult(subtractMatrix);
 
     let paragraphResult = document.createElement('p');
+    paragraphResult.className = 'matrix_label';
     paragraphResult.textContent = 'Substraction result:';
 
     results.appendChild(result);
@@ -206,6 +225,7 @@ multiplyButton.addEventListener('click', () => {
     let result = loadResult(multiplyMatrix);
 
     let paragraphResult = document.createElement('p');
+    paragraphResult.className = 'matrix_label';
     paragraphResult.textContent = 'Multiplication result:';
 
     results.appendChild(result);
@@ -220,6 +240,7 @@ multiplyByButton.addEventListener('click', () => {
     let result = loadResult(multiplyByMatrix);
 
     let paragraphResult = document.createElement('p');
+    paragraphResult.className = 'matrix_label';
     paragraphResult.textContent = `Matrix A multiplied by ${value}:`;
 
     results.appendChild(result);
@@ -233,6 +254,7 @@ transposeButton.addEventListener('click', () => {
     let result = loadResult(transposedMatrix);
 
     let paragraphResult = document.createElement('p');
+    paragraphResult.className = 'matrix_label';
     paragraphResult.textContent = 'Matrix A transpose result:';
 
     results.appendChild(result);
@@ -244,6 +266,7 @@ determinantButton.addEventListener('click', () => {
 
     let determinant = calculateDeterminant(inputValues[0]);
     let paragraphResult = document.createElement('p');
+    paragraphResult.className = 'matrix_label';
     paragraphResult.textContent = `The determinant is ${determinant}`;
 
     results.appendChild(paragraphResult);
@@ -266,6 +289,7 @@ inverseButton.addEventListener('click', () => {
     });
 
     let paragraphResult = document.createElement('p');
+    paragraphResult.className = 'matrix_label';
     paragraphResult.textContent = 'Matrix A inverse result:';
 
     results.appendChild(result);
@@ -274,6 +298,7 @@ inverseButton.addEventListener('click', () => {
 
 identityButton.addEventListener('click', () => {
     let paragraphResult = document.createElement('p');
+    paragraphResult.className = 'matrix_label';
     paragraphResult.textContent = `Identity matrix of size ${currentSize}`;
 
     let result = loadResult(createIdentityMatrix(currentSize));
@@ -289,4 +314,7 @@ container.addEventListener('click', () => {
 });
 
 // Load matrices on startup, remove after project is done.
-window.addEventListener('load', loadMatrices);
+window.addEventListener('load', () => {
+    loadMatrices();
+    updateParagraphs();
+});
