@@ -110,12 +110,12 @@ let checkForZeroes = (a) => {
 
     // Check rows
     for(let i = 0; i < matrix.length; i++) 
-        if(matrix[i].reduce((total, value) => total + value) === 0) return hasZeroes;
+        if(matrix[i].every(value => value === 0)) return hasZeroes;
     
     // Check columns
     matrix = transposeMatrix(matrix);
     for(let j = 0; j < matrix.length; j++) 
-        if(matrix[j].reduce((total, value) => total + value) === 0) return hasZeroes;
+        if(matrix[j].every(value => value === 0)) return hasZeroes;
     
     return !hasZeroes;
 
@@ -141,6 +141,8 @@ let swapMatrixRows = (a, i) => {
 let calculateDeterminant = (a) => {
     let matrix = window.structuredClone(a);
     if(checkForZeroes(matrix)) return 0;
+
+    console.log('start')
 
     for (let i = 0; i < (matrix.length - 1); i++) {
         let currentCellValue = matrix[i][i];

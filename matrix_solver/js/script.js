@@ -18,9 +18,9 @@ import {
 */
 
 let matrix_a = [
-    [0, 0, 1],
-    [3, 5, 4],
-    [1, 6, 5]
+    [-8, -8, -4],
+    [-9, 9, -10],
+    [6, -1, 3]
 ];
 
 let matrix_b = [
@@ -263,6 +263,7 @@ transposeButton.addEventListener('click', () => {
 
 determinantButton.addEventListener('click', () => {
     updateMatrices();
+    loadMatrices();
 
     let determinant = calculateDeterminant(inputValues[0]);
     let paragraphResult = document.createElement('p');
