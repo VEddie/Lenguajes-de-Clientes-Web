@@ -13,9 +13,6 @@ import {
 }
     from "./matrix.js";
 
-/* TO DO: 
-    - Refactor some of the matrix.js functions for optimization. []
-*/
 
 // Matrix cell settings
 let currentSize = 3;
